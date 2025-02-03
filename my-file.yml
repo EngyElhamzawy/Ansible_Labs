@@ -1,0 +1,25 @@
+- name: Setup Nginx web server
+  hosts: web_servers
+  become: true
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+
+    - name: Install the latest version of Nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Copy custom index.html to web root
+      copy:
+        src: ./index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
