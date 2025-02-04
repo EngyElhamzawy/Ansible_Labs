@@ -1,0 +1,10 @@
+---
+- name: Install package using inventory-level variables
+  hosts: all
+  become: yes
+    
+  tasks:
+    - name: Install package using apt module
+      apt:
+        name: "{{package_name}}={{package_version}}"
+        state: present

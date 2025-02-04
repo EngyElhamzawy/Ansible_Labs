@@ -1,0 +1,21 @@
+- name: Install and restart Nginx conditionally
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+      register: nginx_install
+      ignore_errors: no 
+
+    - name: Display installation details
+      debug:
+        var: nginx_install
+
+    - name: Restart nginx service if installation changed
+      service:
+        name: nginx
+        state: restarted
+      when: nginx_install.changed and not nginx_install.failed

@@ -1,0 +1,32 @@
+---
+- name: Install web server
+  hosts: all
+  become: yes
+  vars:
+    restart_nginx: yes
+
+  tasks:
+  
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: latest
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Restart nginx service if Ubuntu and restart_nginx is true
+      service:
+        name: nginx
+        state: restarted
+        use: service
+      when: ansible_facts['os_family'] == 'Debian' and restart_nginx == true
+   
+    - name: Send message if the system is  RedHat 
+      debug:
+        msg: "This system is Debin not RedHat"
+      when: ansible_facts['os_family'] == 'Debian'

@@ -1,0 +1,23 @@
+---
+- name: Simple Playbook 
+  hosts: all 
+  become: yes
+  tasks:
+    - name: Update apt 
+      apt:
+        update_cache: yes
+      tags:
+        - update
+
+    - name: Install Nginx 
+      apt:
+        name: nginx
+        state: present
+      tags:
+        - install
+    
+    - name: ALways run this task
+      debug:
+        msg: "this task always run!"
+      tags:
+        - always

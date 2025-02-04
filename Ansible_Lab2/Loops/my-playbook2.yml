@@ -1,0 +1,17 @@
+---
+- name: Manage multiple packages with different actions
+  hosts: all
+  become: yes
+
+  vars:
+    packages_actions:
+      - { name: "nginx", action: "present" }
+      - { name: "curl", action: "latest" }
+      - { name: "git", action: "absent" }
+
+  tasks:
+    - name: Manage multiple packages with different actions
+      apt:
+        name: "{{ item.name }}"
+        state: "{{ item.action}}"
+      loop: "{{ packages_actions}}"
