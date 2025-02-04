@@ -1,0 +1,5 @@
+package_name: nginx
+files_to_copy:
+  - index.html
+  - style.css
+  - script.js

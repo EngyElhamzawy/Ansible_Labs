@@ -1,0 +1,13 @@
+- name: Copy files handler
+  copy:
+    src: "{{ item }}"
+    dest: "/var/www/html/{{ item }}"
+    mode: '0644'
+  loop: "{{ files_to_copy }}"
+  notify: Restart service handler
+
+- name: Restart service handler
+  service:
+    name: "{{ package_name }}"
+    use: service
+    state: restarted

@@ -1,0 +1,6 @@
+web:
+  vars:
+    ansible_port: 22
+  hosts:
+    172.17.0.3:
+    172.17.0.2:
