@@ -1,0 +1,11 @@
+- name: Install package
+  package:
+    name: "{{ package_name }}"
+    state: present
+
+- name: Copy template
+  template:
+    src: "{{ file_name }}"
+    dest: "/var/www/html/index.html"
+    mode: '0644'
+  notify: Copy files handler

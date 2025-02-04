@@ -1,0 +1,20 @@
+- name: Install package
+  package:
+    name: "{{ package_name }}"
+    state: present
+  register: install_status
+
+- name: Copy files
+  copy:
+    src: "{{ item }}"
+    dest: "/var/www/html/{{ item }}"
+    mode: '0644'
+  loop: "{{ files_to_copy }}"
+  when: install_status.changed
+  register: copy_status
+
+- name: Restart service
+  service:
+    name: "{{ package_name }}"
+    state: restarted
+  when: copy_status.changed

@@ -1,0 +1,6 @@
+package_name: nginx
+file_name: index.html.j2
+text_msg: "here is my template"
+files_to_copy:
+  - style.css
+  - script.js

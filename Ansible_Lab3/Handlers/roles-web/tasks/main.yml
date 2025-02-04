@@ -1,0 +1,5 @@
+- name: Install package
+  package:
+    name: "{{ package_name }}"
+    state: present
+  notify: Copy files handler

@@ -1,0 +1,7 @@
+# myplay.yml
+---
+- name: Deploy web application
+  hosts: web
+  become: yes
+  roles:
+    - web
